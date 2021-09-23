@@ -1,3 +1,4 @@
+/////////////Challenge #1//////////////
 // We're building a football betting app (soccer for my American friends 😅)!
 
 // Suppose we get data from a web service about a certain game (below). In this challenge we're gonna work with the data. So here are your tasks:
@@ -51,24 +52,29 @@ const game = {
     team2: 6.5,
   },
 };
-
+//1.
 const [player1, player2] = game.players;
 console.log(player1, player2);
 
+//2.
 const [gk, ...fieldPlayers] = game.players;
 console.log(gk, fieldPlayers);
 
+//3.
 const allPlayers = [...player1, ...player2];
 console.log(allPlayers);
 
+//4.
 const players1Final = [...player1, "Thiago", "Coutinho", "Periscic"];
-console.log(playersFinal);
+console.log(players1Final);
 
+//5.
 const {
   odds: { team1, x: draw, team2 },
 } = game;
 console.log(team1, draw, team2);
 
+//6.
 const printGoals = function (...players) {
   console.log(players);
   console.log(`${players.length} goals were scored`);
@@ -79,5 +85,39 @@ printGoals("Davies", "Muller");
 
 printGoals(...game.scored);
 
+//7.
 team1 > team2 && console.log("Team1 is more likely to win");
 team1 < team2 && console.log("Team2 is more likely to win");
+
+/////////////Challenge #2//////////////
+/* 
+Let's continue with our football betting app!
+
+1. Loop over the game.scored array and print each player name to the console, along with the goal number (Example: "Goal 1: Lewandowski")
+2. Use a loop to calculate the average odd and log it to the console (We already studied how to calculate averages, you can go check if you don't remember)
+3. Print the 3 odds to the console, but in a nice formatted way, exaclty like this:
+      Odd of victory Bayern Munich: 1.33
+      Odd of draw: 3.25
+      Odd of victory Borrussia Dortmund: 6.5
+Get the team names directly from the game object, don't hardcode them (except for "draw"). HINT: Note how the odds and the game objects have the same property names 😉
+*/
+
+//1.
+for (const [i, name] of game.scored.entries()) {
+  console.log(`Goal ${i + 1}: ${name}`);
+}
+//2.
+const values = Object.values(game.odds);
+let ave = 0;
+for (const odd of values) {
+  ave += odd;
+}
+console.log(ave / values.length);
+
+//3.
+const entries = Object.entries(game.odds);
+for (const [team, odd] of entries) {
+  const teamStr = team === "x" ? "draw" : `victory ${game[team]}`;
+  console.log(`Odd of ${teamStr}: ${odd}`);
+}
+//"Bayern Munich" : "Borrussia Dortmund";
